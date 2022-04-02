@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/icon-fonts.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Where in the Word App</title>
+    <script defer src="js/app.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__container">
+        <h1 class="logo">Where in the Word?</h1>
+        <div class="dark-mode">
+          <i class="lnr lnr-moon dark-mode__icon"></i>
+          <span>Dark Mode</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container"></div>
+      <div class="wrapp">
+        <div class="danger hidden">
+          <div class="danger__box">
+            <i class="lnr lnr-warning"></i>
+            <p class="danger__message"></p>
+            <i class="lnr lnr-cross btn-close"></i>
+          </div>
+        </div>
+        <div class="box-seach">
+          <form action="#" class="form">
+            <div class="form__name">
+              <i class="lnr lnr-magnifier form__name--icon"></i>
+              <input
+                type="search"
+                name=""
+                placeholder="Search for a Country..."
+                class="form__name--input"
+              />
+            </div>
+            <div class="form__region">
+              <input list="region" name="" id="regions" /
+              class="form__region--input" placeholder="Filter by Region">
+              <i class="lnr lnr-chevron-down form__region--icon"></i>
+              <div class="options hidden">
+                <span class="options__btn">
+                  <span class="options__list">Africa</span>
+                </span>
+                <span class="options__btn">
+                  <span class="options__list">Americas</span>
+                </span>
+                <span class="options__btn">
+                  <span class="options__list">Asia</span>
+                </span>
+                <span class="options__btn">
+                  <span class="options__list">Europe</span>
+                </span>
+                <span class="options__btn">
+                  <span class="options__list">Oceania</span>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="box-content"></div>
+      </div>
+      <div class="box-spinner hidden">
+        <?xml version="1.0" encoding="UTF-8"?>
+        <svg
+          class="spinner"
+          viewBox="0 0 20 20"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <g
+            id="🔍-System-Icons"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <g
+              id="ic_fluent_spinner_ios_20_regular"
+              fill-rule="nonzero"
+              class="spinner-fill"
+            >
+              <path
+                d="M10,3 C6.13401,3 3,6.13401 3,10 C3,10.2761 2.77614,10.5 2.5,10.5 C2.22386,10.5 2,10.2761 2,10 C2,5.58172 5.58172,2 10,2 C14.4183,2 18,5.58172 18,10 C18,14.4183 14.4183,18 10,18 C9.72386,18 9.5,17.7761 9.5,17.5 C9.5,17.2239 9.72386,17 10,17 C13.866,17 17,13.866 17,10 C17,6.13401 13.866,3 10,3 Z"
+                id="🎨-Color"
+              ></path>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </main>
+  </body>
+</html>
+
+<!--
+
+    <article class="card">
+            <div class="card__flag">
+              <img
+                src="img/flag.svg"
+                alt="flag of country"
+                class="card__flag--img"
+              />
+            </div>
+            <div class="card__content">
+              <h2 class="card__content--name">Angola</h2>
+              <span class="card__content--info">
+                <span>Population:</span> 239.9
+              </span>
+              <span class="card__content--info">
+                <span>Region:</span> Africa
+              </span>
+              <span class="card__content--info">
+                <span>Capital:</span> Luanda
+              </span>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card__flag">
+              <img
+                src="img/flag.svg"
+                alt="flag of country"
+                class="card__flag--img"
+              />
+            </div>
+            <div class="card__content">
+              <h2 class="card__content--name">Angola</h2>
+              <span class="card__content--info">
+                <span>Population:</span> 239.9
+              </span>
+              <span class="card__content--info">
+                <span>Region:</span> Africa
+              </span>
+              <span class="card__content--info">
+                <span>Capital:</span> Luanda
+              </span>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card__flag">
+              <img
+                src="img/flag.svg"
+                alt="flag of country"
+                class="card__flag--img"
+              />
+            </div>
+            <div class="card__content">
+              <h2 class="card__content--name">Angola</h2>
+              <span class="card__content--info">
+                <span>Population:</span> 239.9
+              </span>
+              <span class="card__content--info">
+                <span>Region:</span> Africa
+              </span>
+              <span class="card__content--info">
+                <span>Capital:</span> Luanda
+              </span>
+            </div>
+          </article>
+-->
