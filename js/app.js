@@ -10,6 +10,8 @@ const labelMassageDanger = document.querySelector(".danger__message");
 const containerAllInfo = document.querySelector(".container");
 const containerWrapp = document.querySelector(".wrapp");
 const btnDarkMode = document.querySelector(".dark-mode");
+const labelMode = document.querySelector(".dark-mode>span");
+const iconMode = document.querySelector(".dark-mode__icon");
 let URL;
 let currentCountries = [];
 let bitMod = false;
@@ -30,8 +32,14 @@ const formatNumber = function (number) {
   return new Intl.NumberFormat("pt-PT").format(number);
 };
 
+const changeInfoMode = function (text, classNameToReplce, newClassName) {
+  iconMode.classList.replace(classNameToReplce, newClassName);
+  labelMode.textContent = text;
+};
+
 const activeDarkMod = function () {
   if (!bitMod) {
+    changeInfoMode("Light Mode", "lnr-moon", "lnr-sun");
     document.documentElement.style.setProperty(
       "--color-grey-light-bg",
       "hsl(207, 26%, 17%)"
@@ -50,6 +58,7 @@ const activeDarkMod = function () {
     );
     bitMod = !bitMod;
   } else {
+    changeInfoMode("Dark Mode", "lnr-sun", "lnr-moon");
     document.documentElement.style.setProperty(
       "--color-grey-light-bg",
       "hsl(0, 0%, 98%)"
