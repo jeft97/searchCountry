@@ -82,7 +82,6 @@ const activeDarkMod = function () {
 const renderCountries = function (data) {
   containerDanger.classList.add("hidden");
   containerContent.innerHTML = "";
-  containerSpinner.classList.add("hidden");
   data.forEach((country) => {
     const html = `
         <article class="col-1-of-4 card">
@@ -186,7 +185,7 @@ const renderCountriesDitlaes = function (country) {
 const requestDateOfAPI = function (request) {
   request
     .then((response) => {
-      if (!response.ok) throw `The server was not find (404)`;
+      if (!response.ok) throw new Error(`Server not found! (404)`);
       return response.json();
     })
     .then((data) => {
@@ -196,8 +195,10 @@ const requestDateOfAPI = function (request) {
       }, 1000);
     })
     .catch((e) => {
-      containerSpinner.classList.add("hidden");
       showMessageDanger(e);
+    })
+    .finally(() => {
+      containerSpinner.classList.add("hidden");
     });
 };
 
