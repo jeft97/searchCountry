@@ -250,7 +250,7 @@ inputSeachByName.addEventListener("input", function (e) {
     renderCountries(currentCountries);
     return;
   }
-  console.log(currentCountries);
+
   if (currentCountries.length === 0) {
     containerSpinner.classList.add("hidden");
     showMessageDanger(`The server was not find (404)`);
