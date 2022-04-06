@@ -12,12 +12,9 @@ const containerWrapp = document.querySelector(".wrapp");
 const btnDarkMode = document.querySelector(".dark-mode");
 const labelMode = document.querySelector(".dark-mode>span");
 const iconMode = document.querySelector(".dark-mode__icon");
-let URL;
-let currentCountries = [];
+
+let currentCountries;
 let bitMod = false;
-const requestRegion = function (url) {
-  return fetch(url);
-};
 
 const clearContent = function () {
   containerContent.innerHTML = "";
@@ -36,43 +33,44 @@ const changeInfoMode = function (text, classNameToReplce, newClassName) {
   iconMode.classList.replace(classNameToReplce, newClassName);
   labelMode.textContent = text;
 };
+const hiddenSpinner = function () {
+  containerSpinner.classList.add("hidden");
+};
+
+const changeAllColors = function (
+  clGreyLightBg,
+  clWhiteText,
+  clBlueDarkText,
+  clGreyDark
+) {
+  document.documentElement.style.setProperty(
+    "--color-grey-light-bg",
+    clGreyLightBg
+  );
+  document.documentElement.style.setProperty("--color-white-text", clWhiteText);
+  document.documentElement.style.setProperty(
+    "--color-blue-dark-text",
+    clBlueDarkText
+  );
+  document.documentElement.style.setProperty("--color-grey-dark", clGreyDark);
+};
 
 const activeDarkMod = function () {
   if (!bitMod) {
     changeInfoMode("Light Mode", "lnr-moon", "lnr-sun");
-    document.documentElement.style.setProperty(
-      "--color-grey-light-bg",
-      "hsl(207, 26%, 17%)"
-    );
-    document.documentElement.style.setProperty(
-      "--color-white-text",
-      "hsl(209, 23%, 22%)"
-    );
-    document.documentElement.style.setProperty(
-      "--color-blue-dark-text",
-      "hsl(0, 0%, 100%)"
-    );
-    document.documentElement.style.setProperty(
-      "--color-grey-dark",
+    changeAllColors(
+      "hsl(207, 26%, 17%)",
+      "hsl(209, 23%, 22%)",
+      "hsl(0, 0%, 100%)",
       "hsl(0, 0%, 96%)"
     );
     bitMod = !bitMod;
   } else {
     changeInfoMode("Dark Mode", "lnr-sun", "lnr-moon");
-    document.documentElement.style.setProperty(
-      "--color-grey-light-bg",
-      "hsl(0, 0%, 98%)"
-    );
-    document.documentElement.style.setProperty(
-      "--color-white-text",
-      "hsl(0, 0%, 100%)"
-    );
-    document.documentElement.style.setProperty(
-      "--color-blue-dark-text",
-      "hsl(200, 15%, 8%)"
-    );
-    document.documentElement.style.setProperty(
-      "--color-grey-dark",
+    changeAllColors(
+      "hsl(0, 0%, 98%)",
+      "hsl(0, 0%, 100%)",
+      "hsl(200, 15%, 8%)",
       "hsl(0, 0%, 52%)"
     );
     bitMod = !bitMod;
@@ -81,6 +79,7 @@ const activeDarkMod = function () {
 
 const renderCountries = function (data) {
   containerDanger.classList.add("hidden");
+  hiddenSpinner();
   containerContent.innerHTML = "";
   data.forEach((country) => {
     const html = `
@@ -113,11 +112,10 @@ const renderCountries = function (data) {
   });
 };
 
-const renderCountriesDitlaes = function (country) {
+const renderCountriesDetails = function (country) {
   containerAllInfo.innerHTML = "";
-  const hasBordersOrNot = !country.borders
-    ? "Not have a borders"
-    : country.borders;
+  const hasBordersOrNot = country.borders ?? "Not have a borders";
+
   const html = `
     <div class="container__wrapp">
           <button class="btn__back">
@@ -182,33 +180,23 @@ const renderCountriesDitlaes = function (country) {
   containerAllInfo.insertAdjacentHTML("beforeend", html);
 };
 
-const requestDateOfAPI = function (request) {
-  request
-    .then((response) => {
-      if (!response.ok) throw new Error(`Server not found! (404)`);
-      return response.json();
-    })
-    .then((data) => {
-      setTimeout(() => {
-        currentCountries = data;
-        renderCountries(data);
-      }, 1000);
-    })
-    .catch((e) => {
-      showMessageDanger(e);
-    })
-    .finally(() => {
-      containerSpinner.classList.add("hidden");
-    });
-};
-
-function init() {
+(async function () {
   clearContent();
-  URL = `https://restcountries.com/v3.1/all`;
-  const request = requestRegion(URL);
-  requestDateOfAPI(request);
-}
-init();
+  try {
+    const request = await fetch(`https://restcountries.com/v3.1/all`);
+    if (!request.ok) throw new Error(`Server not found! (404)`);
+    const data = await request.json();
+
+    setTimeout(() => {
+      renderCountries(data);
+      currentCountries = data;
+    }, 1000);
+  } catch (err) {
+    showMessageDanger(err);
+  } finally {
+    hiddenSpinner();
+  }
+})();
 
 // EVENTS HANDELLER
 containerOptions.addEventListener("click", function (e) {
@@ -220,7 +208,7 @@ containerOptions.addEventListener("click", function (e) {
 
   inputRegion.value = region;
   if (currentCountries.length === 0) {
-    containerSpinner.classList.add("hidden");
+    hiddenSpinner();
     showMessageDanger(`The server was not find (404)`);
     return;
   }
@@ -252,7 +240,7 @@ inputSeachByName.addEventListener("input", function (e) {
   }
 
   if (currentCountries.length === 0) {
-    containerSpinner.classList.add("hidden");
+    hiddenSpinner();
     showMessageDanger(`The server was not find (404)`);
     return;
   }
@@ -263,7 +251,7 @@ inputSeachByName.addEventListener("input", function (e) {
   });
 
   if (countryFound.length === 0) {
-    containerSpinner.classList.add("hidden");
+    hiddenSpinner();
     showMessageDanger(`${inputSeachByName.value} was not found!`);
     return;
   }
@@ -289,7 +277,7 @@ containerContent.addEventListener("click", (e) => {
   );
   containerWrapp.classList.add("hidden");
   containerAllInfo.style.display = "flex";
-  renderCountriesDitlaes(countryFound[0]);
+  renderCountriesDetails(countryFound[0]);
   /* clear input */
   inputSeachByName.value = "";
 });
